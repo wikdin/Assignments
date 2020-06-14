@@ -1,0 +1,110 @@
+//
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+
+main()
+{
+    int A[100][100],B[100][100],mul[100][100];
+    int i,j,k,m,n,res1,c,d,sum,res2,res3;
+    printf("Enter the order of the matrix: \n");
+    scanf("%d",&n);
+    printf("\nEnter the elements of the matrix A: \n");
+   for (i = 0; i < n; i++)
+	{
+	for (j = 0; j < n; j++)
+	{
+		scanf ("%d", &A[i][j]);
+	}
+	}
+
+
+    printf("Enter the order of the 2nd matrix: \n");
+    scanf("%d",&m);
+
+	
+	if ( n != m )
+    printf("Matrices with entered orders can't be multiplied with each other.\n");
+  else
+  {
+    printf("Enter the elements of second matrix\n");
+ 
+    for ( c = 0 ; c < m ; c++ )
+      for ( d = 0 ; d < m ; d++ )
+        scanf("%d", &B[c][d]);
+ 
+ 
+ //matrix multiplication
+    for ( c = 0 ; c < m ; c++ )
+    {
+      for ( d = 0 ; d < m ; d++ )
+      {
+        for ( k = 0 ; k < m ; k++ )
+        {
+          sum = sum + A[c][k]*B[k][d];
+        }
+ 
+        mul[c][d] = sum;
+        sum = 0;
+      }
+    }
+  }	
+	
+	
+//det(AB)
+    res1 = det(mul,n);
+    printf("\ndet(A*B): %d",res1);
+    
+    
+    res2=det(A,n); //det(A)
+    res3=det(B,m); //det(B)
+    
+    printf("\n\ndet(A)*det(B)=%d*%d=%d",res2,res3,res2*res3);
+    printf("\n\nHence det(A*B)=det(A)*det(B)");
+
+}
+
+//function to compute determinant
+
+int det(int A[100][100], int n)
+{
+    int Minor[100][100];
+    int i,j,k,c1,c2;
+    int determinant;
+    int c[100];
+    int O=1;
+    determinant = 0;
+    
+    if(n == 2)
+    {
+        
+        determinant = A[0][0]*A[1][1]-A[0][1]*A[1][0];
+        return determinant;
+    }
+    else
+    {
+        for(i = 0 ; i < n ; i++)
+        {
+            c1 = 0, c2 = 0;
+            for(j = 0 ; j < n ; j++)
+            {
+                for(k = 0 ; k < n ; k++)
+                {
+                    if(j != 0 && k != i)
+                    {
+                        Minor[c1][c2] = A[j][k];
+                        c2++;
+                        if(c2>n-2)
+                        {
+                            c1++;
+                            c2=0;
+                        }
+                    }
+                }
+            }
+            determinant = determinant + O*(A[0][i]*det(Minor,n-1));
+            O=-1*O;
+        }
+    }
+    return determinant;
+}
