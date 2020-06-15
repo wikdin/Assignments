@@ -104,7 +104,7 @@ void main(){
     eig(n,transpose,x);
     
     
-    printf("Hence proves the property Eigen Value and Eigen vector of A and A_transpose are same.")
+    printf("Hence proves the property Eigen Value and Eigen vector of A and A_transpose are same.");
     
     getch();
 }
