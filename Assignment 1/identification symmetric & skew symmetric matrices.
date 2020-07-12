@@ -1,0 +1,69 @@
+//6. identification symmetric Property of Matrix i.s. symmetric, skew symmetric and asymmetric
+
+
+#include<stdio.h>
+int main()
+{
+  int m, n, c, d, matrix[10][10], transpose[10][10], row, column, x = 0;
+
+  printf("Enter the number of rows and columns of matrix\n");
+  scanf("%d%d", &m, &n);
+  printf("Enter elements of the matrix\n");
+
+//taking input
+  for (c = 0; c < m; c++)
+    for (d = 0; d < n; d++)
+      scanf("%d", &matrix[c][d]);
+
+  for (c = 0; c < m; c++)
+    for (d = 0; d < n; d++)
+      transpose[d][c] = matrix[c][d];
+
+
+  //symmetric property check
+  if (m == n) /* check if order is same */
+  {
+    for (c = 0; c < m; c++)
+    {
+      for (d = 0; d < m; d++)
+      {
+        if (matrix[c][d] != transpose[c][d])
+          break;
+      }
+      if (d != m)
+        break;
+    }
+    if (c == m)
+      printf("The matrix is symmetric.\n");
+    else
+      printf("The matrix isn't symmetric.\n");
+  }
+  else
+    printf("The matrix isn't symmetric.\n");
+    
+   
+    
+//skew symmetric property check    
+      for(row = 0; row < m; row++)
+      {
+            for(column = 0; column < n; column++)
+            {
+                  if(matrix[row][column] != -1*matrix[column][row])
+                  {
+                        x = 1;
+                        break;
+                  }
+            }
+      }
+      if(x == 1)
+      {
+            printf("\nThe Entered Matrix is Not A Skewed Symmetric Matrix\n");
+      }
+      else
+      {
+            printf("\nThe Entered Matrix is A Skewed Symmetric Matrix\n");
+      }    
+      
+
+  return 0;
+}
